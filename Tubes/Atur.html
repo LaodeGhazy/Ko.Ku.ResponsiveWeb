@@ -1,0 +1,58 @@
+<style>
+    input{
+        margin-left:10px;
+    }
+    </style>
+    Input:
+    <hr/>
+    <link rel="stylesheet" type="text/css" href="css/Atur.css">
+    
+    <b>Uang Saku</b><br/>
+    <input type="text" name="saku" id="um"><br/><br/>
+    <div id="i">
+    <input type="text" name="nama" placeholder="Keperluan 1" id="nama-1">&nbsp;<input type="text" name="bahan[]" placeholder="Dana 1" id="nom-1"><br/><br/>
+    <input type="text" name="nama" placeholder="Keperluan 2" id="nama-2">&nbsp;<input type="text" name="bahan[]" placeholder="Dana 2" id="nom-2"><br/><br/>
+    </div>
+    <button  class="myButton" name="submit" id="itung" value="Simpan">Itung</button><br/><br/>
+    <hr/>
+    <button class="myButton" value="Bahan" onclick="tambahForm()" id="tambah">Tambah form</button>
+    <br/><br/>
+    <div id="a"></div>
+    <p id="saku"></p>
+    <p id="sisa"></p>
+    <script type="text/javascript">
+    var i = 2;
+    function tambahForm(){
+        i++;
+        var element = document.createElement("input");
+        var br = document.createElement("br");
+        var br2 = document.createElement("br");
+        element.setAttribute("id", "nama-"+i);
+        element.setAttribute("name", "nama[]");
+        element.setAttribute("placeholder", "Nama Kegiatan "+i);
+        element.setAttribute("type", "text");
+        var elements = document.createElement("input");
+        elements.setAttribute("id", "nom-"+i);
+        elements.setAttribute("name", "bahan[]");
+        elements.setAttribute("placeholder", "Bahan "+i);
+        elements.setAttribute("type", "text");
+        document.getElementById("i").appendChild(element);
+        document.getElementById("i").appendChild(elements);
+        document.getElementById("i").appendChild(br);
+        document.getElementById("i").appendChild(br2);
+    }
+    document.getElementById("itung").onclick = function (){
+        var d = 0;
+        for (var j = 1; j <= i; j++){
+            d=(d+parseInt(document.getElementById("nom-"+j).value));
+            var node = document.createElement("p");                 // Create a <li> node
+            var textnode = document.createTextNode("Pengeluaran untuk "+document.getElementById("nama-"+j).value+" ialah sebesar "+document.getElementById("nom-"+j).value);         // Create a text node
+            node.appendChild(textnode);                              // Append the text to <li>
+            document.getElementById("a").appendChild(node);     // Append <li> to <ul> with id="myList"
+        }
+        console.log(d);
+        document.getElementById("saku").innerHTML = "Uang saku "+document.getElementById("um").value;
+        document.getElementById("sisa").innerHTML = "Sisa uang saku "+(parseInt(document.getElementById("um").value)-d);
+    }
+    
+    </script>
